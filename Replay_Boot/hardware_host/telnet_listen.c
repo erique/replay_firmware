@@ -184,7 +184,8 @@ size_t TELNET_recv(void* buffer, size_t size)
 
         memcpy(buffer, TELNET_buffer, size);
         TELNET_data_available -= size;
-        memmove(TELNET_buffer, &TELNET_buffer[size], TELNET_data_available);
+        if (TELNET_data_available)
+            memmove(TELNET_buffer, &TELNET_buffer[size], TELNET_data_available);
         return size;
     }
 
