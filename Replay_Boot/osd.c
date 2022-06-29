@@ -323,6 +323,7 @@ void OSD_WriteScroll(uint8_t row, const char* text, uint16_t pos, uint16_t len, 
 
     if (remaining > 0) {
         strncpy(s, &text[pos], remaining);
+        s[OSDMAXLEN] = 0;
     }
 
     if (remaining < OSDMAXLEN + 1 - OSD_SCROLL_BLANKSPACE) {

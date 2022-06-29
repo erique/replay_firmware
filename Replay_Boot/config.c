@@ -1056,6 +1056,7 @@ void CFG_set_status_defaults(status_t* currentStatus, uint8_t init)
 static uint8_t _CFG_handle_SETUP_BIN(status_t* pStatus, const ini_symbols_t name, const char* value)
 {
     strncpy(pStatus->bin_file, value, sizeof(pStatus->bin_file));
+    pStatus->bin_file[sizeof(pStatus->bin_file) - 1] = 0;
     DEBUG(2, "Will use %s for the FPGA.", pStatus->bin_file);
     return 0;
 }
@@ -1521,6 +1522,7 @@ static uint8_t _CFG_handle_MENU_ITEM(status_t* pStatus, const ini_symbols_t name
             } else {
                 strncpy(pStatus->menu_item_act->action_name,
                         valueList[1].strval, MAX_ITEM_STRING);
+                pStatus->menu_item_act->action_name[MAX_ITEM_STRING - 1] = 0;
                 pStatus->menu_item_act->action_value = valueList[2].intval;
             }
         }
@@ -2519,6 +2521,7 @@ menu_t* CFG_alloc_menu_and_set_active(status_t* pStatus, const char* title)
 
     // store title to actual branch
     strncpy(pStatus->menu_act->menu_title, title, MAX_MENU_STRING);
+    pStatus->menu_act->menu_title[MAX_MENU_STRING - 1] = 0;
 
     return pStatus->menu_act;
 }

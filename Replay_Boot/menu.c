@@ -852,6 +852,7 @@ void _MENU_show_file_browser(status_t* current_status)
             if (i == sel) {
                 if (len > OSDLINELEN) { // enable scroll if long name
                     strncpy (current_status->scroll_txt, filename, FF_MAX_FILENAME);
+                    current_status->scroll_txt[FF_MAX_FILENAME - 1] = 0;
                     current_status->scroll_pos = i + 2;
                     current_status->scroll_len = len;
                 }
