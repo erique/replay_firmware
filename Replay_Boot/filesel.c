@@ -175,6 +175,7 @@ void Filesel_ScanUpdate(tDirScan* dir_entries)
             // Copy info from general representation (FF_DIRENT) to size-minimized (FILENTRY)
             mydir.Attrib = direntry.Attrib;
             strncpy(mydir.FileName, direntry.FileName, sizeof(mydir.FileName));
+            mydir.FileName[sizeof(mydir.FileName) - 1] = 0;
 
             //DEBUG(1,"File %s", mydir.FileName);
             //
@@ -303,6 +304,7 @@ void Filesel_ScanFirst(tDirScan* dir_entries)
             // Copy info from general representation (FF_DIRENT) to size-minimized (FILENTRY)
             mydir.Attrib = direntry.Attrib;
             strncpy(mydir.FileName, direntry.FileName, sizeof(mydir.FileName));
+            mydir.FileName[sizeof(mydir.FileName) - 1] = 0;
 
             //DEBUG(1,"File %s", mydir.FileName);
             //

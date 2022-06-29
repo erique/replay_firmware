@@ -1617,6 +1617,7 @@ static uint8_t _CFG_handle_MENU_OPTION(status_t* pStatus, const ini_symbols_t na
 
         strncpy(pStatus->item_opt_act->option_name,
                 valueList[0].strval, MAX_OPTION_STRING);
+        pStatus->item_opt_act->option_name[MAX_OPTION_STRING - 1] = 0;
         DEBUG(3, "O2: %lx %lx", pStatus->item_opt_act,
               pStatus->item_opt_act->next);
         FreeList(valueList, entries);
