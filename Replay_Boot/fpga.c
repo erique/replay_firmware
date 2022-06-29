@@ -180,7 +180,7 @@ uint8_t FPGA_Config(FF_FILE* pFile) // assume file is open and at start
 
     // if file is larger than a raw .bin file let's see if it has a .bit header
     if (FF_Size(pFile)/*->Filesize*/ > FileLength) {
-        char bitinfo[20] = {0}; // "YYYY/MM/DD HH:MM:SS",0
+        char bitinfo[20 + 1] = {0}; // "YYYY/MM/DD HH:MM:SS",0
 
         uint8_t* data = fBuf1;
         const uint32_t maxSize = sizeof(fBuf1);
