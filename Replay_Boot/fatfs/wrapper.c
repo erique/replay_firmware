@@ -507,6 +507,9 @@ FF_FILE* FF_Open(FF_IOMAN* pIoman, const FF_T_INT8* path, FF_T_UINT8 Mode, FF_ER
 
 FF_ERROR FF_Close(FF_FILE* pFile)
 {
+    if (!pFile)
+        return FF_ERR_NULL_POINTER;
+
     FF_ERROR ret = mapError(f_close((FIL*)pFile));
 
     if (pFile) {
