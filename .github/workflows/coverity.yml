@@ -8,6 +8,9 @@ on:
     - '**'
   workflow_dispatch:
 
+env:
+  HOSTED: 1
+
 jobs:
   coverity:
     runs-on: ubuntu-latest
@@ -20,6 +23,4 @@ jobs:
       with:
         email: ${{ secrets.COVERITY_SCAN_EMAIL }}
         token: ${{ secrets.COVERITY_SCAN_TOKEN }}
-        command: |
-          cd $GITHUB_WORKSPACE/Replay_Boot
-          HOSTED=1 make
+        working-directory: '$GITHUB_WORKSPACE/Replay_Boot'
