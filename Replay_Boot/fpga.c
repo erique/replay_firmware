@@ -196,7 +196,7 @@ uint8_t FPGA_Config(FF_FILE* pFile) // assume file is open and at start
 
             if (length > maxSize) {
                 seekLength = length - maxSize;
-                length = maxSize;
+                length = maxSize - 1;
             }
 
             if (BIT_STREAM_LENGTH == bitTag) {
