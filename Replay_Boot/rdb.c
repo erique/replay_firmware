@@ -200,7 +200,10 @@ void SynchronizeRdbWithMbr()
 
         DumpBuffer((uint8_t*)&rdsk, sizeof(rdsk));
 
-        Card_WriteM((uint8_t*)&rdsk, cur_block++, 1, NULL);
+        uint8_t block[512];
+        memcpy(block, &rdsk, sizeof(rdsk));
+        memset(&block[sizeof(rdsk)], 0x00, sizeof(block) - sizeof(rdsk));
+        Card_WriteM(block, cur_block++, 1, NULL);
     }
 
     for (int i = 0; i < num_partitions; ++i) {
@@ -245,7 +248,10 @@ void SynchronizeRdbWithMbr()
 
         DumpBuffer((uint8_t*)&part, sizeof(part));
 
-        Card_WriteM((uint8_t*)&part, cur_block++, 1, NULL);
+        uint8_t block[512];
+        memcpy(block, &part, sizeof(part));
+        memset(&block[sizeof(part)], 0x00, sizeof(block) - sizeof(part));
+        Card_WriteM(block, cur_block++, 1, NULL);
     }
 
     INFO("RDB written");
