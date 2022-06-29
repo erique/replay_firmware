@@ -59,10 +59,10 @@ jmp_buf exit_env;
 static __attribute__ ((noinline)) void FPGA_WriteGeneratedImage(uint32_t base);
 #endif
 
-extern char _binary_replay_ini_start;
-extern char _binary_replay_ini_end;
-extern char _binary_build_replayhand_start;
-extern char _binary_build_replayhand_end;
+extern char _binary_replay_ini_start[];
+extern char _binary_replay_ini_end[];
+extern char _binary_build_replayhand_start[];
+extern char _binary_build_replayhand_end[];
 
 static status_t current_status;
 static void load_core_from_sdcard();
@@ -340,7 +340,7 @@ static __attribute__ ((noinline)) void load_embedded_core()
 #if defined(ARDUINO_SAMD_MKRVIDOR4000)
         FPGA_WriteGeneratedImage(0x00400000);
 #else
-        FPGA_DecompressToDRAM(&_binary_build_replayhand_start, &_binary_build_replayhand_end - &_binary_build_replayhand_start, 0x00400000);
+        FPGA_DecompressToDRAM(_binary_build_replayhand_start, _binary_build_replayhand_end - _binary_build_replayhand_start, 0x00400000);
 #endif
         time = Timer_Get(0) - time;
         DEBUG(0, "FPGA background image uploaded in %d ms.", Timer_Convert(time));
@@ -425,7 +425,7 @@ static __attribute__ ((noinline)) void init_core()
         OSD_ConfigSendUserD(0x00000000); // 60HZ progressive
         current_status.button = BUTTON_OFF;
 #if !defined(FPGA_DISABLE_EMBEDDED_CORE) || defined(ARDUINO_SAMD_MKRVIDOR4000)
-        int32_t status = ParseIniFromString(&_binary_replay_ini_start, &_binary_replay_ini_end - &_binary_replay_ini_start, _CFG_parse_handler, &current_status);
+        int32_t status = ParseIniFromString(_binary_replay_ini_start, _binary_replay_ini_end - _binary_replay_ini_start, _CFG_parse_handler, &current_status);
 
         if (status != 0 ) {
             ERROR("Error at INI line %d", status);
@@ -785,7 +785,7 @@ static __attribute__ ((noinline)) void prepare_sdcard()
         return;
     }
 
-    FF_Write(file, 1, &_binary_replay_ini_end - &_binary_replay_ini_start, (FF_T_UINT8*)&_binary_replay_ini_start);
+    FF_Write(file, 1, _binary_replay_ini_end - _binary_replay_ini_start, (FF_T_UINT8*)_binary_replay_ini_start);
     FF_Close(file);
 
     DEBUG(2, "Writing loader.bin");

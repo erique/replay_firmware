@@ -34,20 +34,20 @@
 #include "tinfl.c"
 // ok, so it is :-)
 
-extern char _binary_build_loader_start;
-extern char _binary_build_loader_end;
+extern char _binary_build_loader_start[];
+extern char _binary_build_loader_end[];
 
 static size_t read_embedded_core(void* buffer, size_t len, void* context)
 {
     static uint32_t secCount = 0;
     uint32_t offset = *(uint32_t*)context;
-    uint32_t size = &_binary_build_loader_end - &_binary_build_loader_start;
+    uint32_t size = _binary_build_loader_end - _binary_build_loader_start;
 
     if (offset + len > size) {
         len = size - offset;
     }
 
-    memcpy(buffer, &_binary_build_loader_start + offset, len);
+    memcpy(buffer, _binary_build_loader_start + offset, len);
     *(uint32_t*)context += len;
 
     // showing some progress...
