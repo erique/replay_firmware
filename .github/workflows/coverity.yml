@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
     - run: sudo apt-get install libncurses5-dev
     - uses: vapier/coverity-scan-action@v1
       with:
