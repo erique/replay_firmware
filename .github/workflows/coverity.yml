@@ -13,8 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - run: sudo apt-get install libncurses5-dev
     - uses: vapier/coverity-scan-action@v1
       with:
         email: ${{ secrets.COVERITY_SCAN_EMAIL }}
         token: ${{ secrets.COVERITY_SCAN_TOKEN }}
-        
+        command: |
+          cd $GITHUB_WORKSPACE/Replay_Boot
+          HOSTED=1 make
