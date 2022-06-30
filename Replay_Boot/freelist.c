@@ -24,9 +24,9 @@ void* FreeList_Alloc(FreeList_Context* context, size_t size, uint32_t tag)
     FreeList_Header* prevPtr = context->freeList;
 
     if (prevPtr == NULL) {
-        context->root.numBlocks = 0;
-        context->root.nextPtr = &context->root;
-        context->freeList = context->root.nextPtr;
+        context->root->numBlocks = 0;
+        context->root->nextPtr = context->root;
+        context->freeList = context->root->nextPtr;
         prevPtr = context->freeList;
 #if FREELIST_DEBUG
         context->allocList = NULL;
