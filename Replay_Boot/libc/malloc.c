@@ -21,7 +21,7 @@ void* sbrk(ptrdiff_t increment)
 static FreeList_Context s_MallocContext = {
     .sbrkFunc	= &sbrk,
     .heapSize	= 0,
-    .root		= { .nextPtr = NULL, .numBlocks = 0 },
+    .root[0]	= { .nextPtr = NULL, .numBlocks = 0 },
     .freeList	= NULL
 };
 
