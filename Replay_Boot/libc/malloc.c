@@ -52,13 +52,13 @@ struct mallinfo mallinfo(void)
 {
     DEBUG(2, "== mallinfo ==");
     DEBUG(2, "heapSize = %d", s_MallocContext.heapSize);
-    DEBUG(2, "&root    = %08x", &s_MallocContext.root);
+    DEBUG(2, "root     = %08x", s_MallocContext.root);
     DEBUG(2, "freeList = %08x", s_MallocContext.freeList);
     s_mallinfo.arena = s_MallocContext.heapSize;
 
     s_mallinfo.fordblks = 0;
 
-    for (FreeList_Header* p = s_MallocContext.root.nextPtr; p != NULL && p != &s_MallocContext.root; p = p->nextPtr) {
+    for (FreeList_Header* p = s_MallocContext.root->nextPtr; p != NULL && p != &s_MallocContext.root; p = p->nextPtr) {
         //		DEBUG(3, "p = %08x ; numBlocks = %d", p, p->numBlocks);
         s_mallinfo.fordblks += p->numBlocks * sizeof(FreeList_Header);
     }
