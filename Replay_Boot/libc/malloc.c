@@ -58,7 +58,7 @@ struct mallinfo mallinfo(void)
 
     s_mallinfo.fordblks = 0;
 
-    for (FreeList_Header* p = s_MallocContext.root->nextPtr; p != NULL && p != &s_MallocContext.root; p = p->nextPtr) {
+    for (FreeList_Header* p = s_MallocContext.root->nextPtr; p != NULL && p != s_MallocContext.root; p = p->nextPtr) {
         //		DEBUG(3, "p = %08x ; numBlocks = %d", p, p->numBlocks);
         s_mallinfo.fordblks += p->numBlocks * sizeof(FreeList_Header);
     }
