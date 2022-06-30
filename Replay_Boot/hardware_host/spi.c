@@ -25,6 +25,7 @@
 #include <ncurses.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <signal.h>
 
 // hdiutil create sdcard.dmg -volname "REPLAY" -fs FAT32 -size 256m -format UDRW -srcfolder ../loader_embedded/
 // mv sdcard.dmg sdcard.bin
@@ -601,10 +602,7 @@ unsigned char rSPI(unsigned char outByte)
 
             default:
                 fprintf(stderr, "UNKNOWN OSD SPI COMMAND! %01x\n", cmd);
-                {
-                    int* p = 0;
-                    *p = 3;
-                }
+                raise(SIGTRAP);
                 break;
 
         }
